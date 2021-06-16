@@ -1,1 +1,3 @@
-export const HomePage = () => <h1>This is home page</h1>;
+import { Trends } from '../components/Trends';
+
+export const HomePage = () => <Trends />;

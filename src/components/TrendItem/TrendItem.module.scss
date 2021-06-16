@@ -1,0 +1,37 @@
+.TrendItem {
+  border: 1px solid #636363;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.4);
+  transition: all 200ms;
+
+  &:hover{
+    box-shadow: 0 0 8px 1px rgba(34, 60, 80, 0.2);
+    transform: scale(1.06);
+  }
+}
+
+.TrendItem__img_wrapper {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+
+  & img {
+    object-fit: cover;
+  }
+}
+
+.TrendItem__link {
+  color: #ffffff;
+  text-decoration: none;
+  text-align: center;
+}
+
+.TrendItem__descr {
+  padding: 0 10px;
+  display: grid;
+  grid-auto-rows: 60px;
+}
+
+.TrendItem__title {
+  overflow: hidden;
+}
