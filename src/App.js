@@ -3,21 +3,25 @@ import { NavLink, Switch, Route } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
 import { MoviesPage } from './pages/MoviesPage';
 
+import { routes } from './routes';
+import { MovieDetailsPage } from './pages/MovieDetailsPage';
+
 function App() {
 	return (
 		<div className="App">
 			<header className="App-header">
-				<NavLink to="/" exact className="App-link">
+				<NavLink to={routes.home} exact className="App-link">
 					Home
 				</NavLink>
-				<NavLink to="/movies" className="App-link">
+				<NavLink to={routes.movies} className="App-link">
 					Movies
 				</NavLink>
 			</header>
 
 			<Switch>
-				<Route path="/" exact component={HomePage} />
-				<Route path="/movies" component={MoviesPage} />
+				<Route path={routes.home} exact component={HomePage} />
+				<Route path={routes.movies} component={MoviesPage} />
+				<Route path={routes.movieDetail} component={MovieDetailsPage} />
 			</Switch>
 		</div>
 	);

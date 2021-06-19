@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 import styles from './TrendItem.module.scss';
+import { Link } from 'react-router-dom';
 
-export const TrendItem = ({ src, alt, title, date }) => (
+import { routes } from '../../routes';
+
+export const TrendItem = ({ id, src, alt, title, date }) => (
 	<li className={styles.TrendItem}>
-		<a href="#" className={styles.TrendItem__link}>
+		<Link to={`${routes.movies}/${id}`} className={styles.TrendItem__link}>
 			<div className={styles.TrendItem__img_wrapper}>
 				<img src={`https://image.tmdb.org/t/p/w300${src}`} alt={alt} />
 			</div>
@@ -11,7 +14,7 @@ export const TrendItem = ({ src, alt, title, date }) => (
 				<h3>{title}</h3>
 				<p>{date}</p>
 			</div>
-		</a>
+		</Link>
 	</li>
 );
 
