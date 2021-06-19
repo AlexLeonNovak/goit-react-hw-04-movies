@@ -10,3 +10,7 @@ axios.interceptors.request.use(request => {
 export const fetchTrading = () => {
 	return axios.get('/trending/all/week').then(res => res.data.results);
 };
+
+export const fetchMovieDetail = movieId => {
+	return axios.get(`/movie/${movieId}`).then(res => res.data);
+};

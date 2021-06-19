@@ -6,15 +6,25 @@ import { fetchTrading } from '../services/movies-api';
 export class HomePage extends Component {
 	state = {
 		trends: [],
+		isLoading: false,
 	};
 
 	componentDidMount() {
-		fetchTrading().then(trends => this.setState({ trends }));
+		this.setState({ isLoading: true });
+		fetchTrading()
+			.then(trends => this.setState({ trends }))
+			.catch(error => console.log(error))
+			.finally(() => this.setState({ isLoading: false }));
 	}
 
 	render() {
-		const { trends } = this.state;
+		const { trends, isLoading } = this.state;
 
-		return <>{trends.length ? <Trends movies={trends} /> : <Loader />}</>;
+		return (
+			<>
+				{trends.length && <Trends movies={trends} />}
+				{isLoading && <Loader />}
+			</>
+		);
 	}
 }
