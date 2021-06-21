@@ -31,7 +31,6 @@ export class MovieDetailsPage extends Component {
 	render() {
 		const { title, genres, overview, poster_path, date, isLoading } =
 			this.state;
-		console.log(genres);
 		return (
 			<div className="container">
 				{isLoading ? (

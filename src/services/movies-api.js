@@ -8,9 +8,17 @@ axios.interceptors.request.use(request => {
 });
 
 export const fetchTrading = () => {
-	return axios.get('/trending/all/week').then(res => res.data.results);
+	return axios.get('/trending/movie/week').then(res => res.data.results);
 };
 
 export const fetchMovieDetail = movieId => {
 	return axios.get(`/movie/${movieId}`).then(res => res.data);
+};
+
+export const fetchCast = movieId => {
+	return axios.get(`/movie/${movieId}/credits`).then(res => res.data.cast);
+};
+
+export const fetchReviews = movieId => {
+	return axios.get(`/movie/${movieId}/reviews`).then(res => res.data.results);
 };
