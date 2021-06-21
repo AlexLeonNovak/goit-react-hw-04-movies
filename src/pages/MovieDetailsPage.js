@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { fetchMovieDetail } from '../services/movies-api';
 import { Loader } from '../components/Loader';
-import { MovieDetails } from '../components/MovieDetailsPage';
+import { MovieDetails } from '../components/MovieDetails';
 
 export class MovieDetailsPage extends Component {
 	state = {

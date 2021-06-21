@@ -27,7 +27,7 @@ export class Reviews extends Component {
 		return (
 			<>
 				{isLoading && <Loader />}
-				{reviews.length && (
+				{reviews.length > 0 ? (
 					<ul>
 						{reviews.map(({ id, author_details, author, content }) => {
 							let avatar = personImg;
@@ -39,19 +39,19 @@ export class Reviews extends Component {
 							}
 							return (
 								<li key={id}>
-									{/*<div className={styles.Review__img_wrapper}>*/}
 									<img
 										src={avatar}
 										alt={author}
 										align="left"
 										className={styles.Review__img}
 									/>
-									{/*</div>*/}
 									<p>{content}</p>
 								</li>
 							);
 						})}
 					</ul>
+				) : (
+					<p>We don't have any reviews for this movie.</p>
 				)}
 			</>
 		);

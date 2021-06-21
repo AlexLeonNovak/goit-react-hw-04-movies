@@ -22,3 +22,9 @@ export const fetchCast = movieId => {
 export const fetchReviews = movieId => {
 	return axios.get(`/movie/${movieId}/reviews`).then(res => res.data.results);
 };
+
+export const searchMovies = query => {
+	return axios
+		.get(`/search/movie?query=${query}`)
+		.then(res => res.data.results);
+};

@@ -1,4 +1,4 @@
-import { Trends } from '../components/Trends';
+import { Movies } from '../components/Movies';
 import { Component } from 'react';
 import { Loader } from '../components/Loader';
 import { fetchTrading } from '../services/movies-api';
@@ -21,10 +21,11 @@ export class HomePage extends Component {
 		const { trends, isLoading } = this.state;
 
 		return (
-			<>
-				{trends.length && <Trends movies={trends} />}
+			<div className="container">
+				<h1>Trends</h1>
+				{trends.length && <Movies movies={trends} />}
 				{isLoading && <Loader />}
-			</>
+			</div>
 		);
 	}
 }
