@@ -1,10 +1,26 @@
 import './App.css';
+import { lazy, Suspense } from 'react';
 import { NavLink, Switch, Route } from 'react-router-dom';
-import { HomePage } from './pages/HomePage';
-import { MoviesPage } from './pages/MoviesPage';
 
 import { routes } from './routes';
-import { MovieDetailsPage } from './pages/MovieDetailsPage';
+import { Loader } from './components/Loader';
+
+const HomePage = lazy(() =>
+	import('./pages/HomePage' /* webpackChunkName: "home-page" */).then(
+		({ HomePage }) => ({ default: HomePage }),
+	),
+);
+
+const MoviesPage = lazy(() =>
+	import('./pages/MoviesPage' /* webpackChunkName: "movies-page" */).then(
+		({ MoviesPage }) => ({ default: MoviesPage }),
+	),
+);
+const MovieDetailsPage = lazy(() =>
+	import(
+		'./pages/MovieDetailsPage' /* webpackChunkName: "movie-details-page" */
+	).then(({ MovieDetailsPage }) => ({ default: MovieDetailsPage })),
+);
 
 function App() {
 	return (
@@ -19,9 +35,11 @@ function App() {
 			</header>
 
 			<Switch>
-				<Route exact path={routes.home} component={HomePage} />
-				<Route exact path={routes.movies} component={MoviesPage} />
-				<Route path={routes.movieDetail} component={MovieDetailsPage} />
+				<Suspense fallback={<Loader />}>
+					<Route exact path={routes.home} component={HomePage} />
+					<Route exact path={routes.movies} component={MoviesPage} />
+					<Route path={routes.movieDetail} component={MovieDetailsPage} />
+				</Suspense>
 			</Switch>
 		</div>
 	);
