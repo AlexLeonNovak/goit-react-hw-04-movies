@@ -10,23 +10,24 @@ export class Reviews extends Component {
 	state = {
 		reviews: [],
 		isLoading: false,
-		isError: false,
+		error: false,
 	};
 
 	componentDidMount() {
-		this.setState({ isLoading: true });
+		this.setState({ isLoading: true, error: null });
 		const { match } = this.props;
 		fetchReviews(match.params.movieId)
 			.then(reviews => this.setState({ reviews }))
-			.catch(error => this.setState({ isError: true }))
+			.catch(error => this.setState({ error }))
 			.finally(() => this.setState({ isLoading: false }));
 	}
 
 	render() {
-		const { reviews, isLoading } = this.state;
+		const { reviews, isLoading, error } = this.state;
 		return (
 			<>
 				{isLoading && <Loader />}
+				{error && <p style={{ color: 'red' }}>{error.message}</p>}
 				{reviews.length > 0 ? (
 					<ul>
 						{reviews.map(({ id, author_details, author, content }) => {

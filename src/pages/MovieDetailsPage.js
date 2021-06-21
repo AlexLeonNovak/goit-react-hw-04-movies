@@ -11,10 +11,11 @@ export class MovieDetailsPage extends Component {
 		poster_path: '',
 		date: '',
 		isLoading: false,
+		error: null,
 	};
 
 	componentDidMount() {
-		this.setState({ isLoading: true });
+		this.setState({ isLoading: true, error: null });
 		const { match } = this.props;
 		fetchMovieDetail(match.params.movieId)
 			.then(data =>
@@ -24,15 +25,16 @@ export class MovieDetailsPage extends Component {
 					title: data.title || data.original_name,
 				}),
 			)
-			.catch(error => console.log(error))
+			.catch(error => this.setState({ error }))
 			.finally(() => this.setState({ isLoading: false }));
 	}
 
 	render() {
-		const { title, genres, overview, poster_path, date, isLoading } =
+		const { title, genres, overview, poster_path, date, isLoading, error } =
 			this.state;
 		return (
 			<div className="container">
+				{error && <p style={{ color: 'red' }}>{error.message}</p>}
 				{isLoading ? (
 					<Loader />
 				) : (

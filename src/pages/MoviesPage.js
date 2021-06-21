@@ -12,7 +12,7 @@ export class MoviesPage extends Component {
 
 	componentDidMount() {
 		const query = this.getSearchQueryFromParams();
-		this.getMovies(query);
+		query && this.getMovies(query);
 	}
 
 	getSearchQueryFromParams() {
@@ -25,6 +25,7 @@ export class MoviesPage extends Component {
 	}
 
 	getMovies = query => {
+		this.setState({ isLoading: true, error: null });
 		searchMovies(query)
 			.then(movies => {
 				this.setState({ movies });
@@ -34,18 +35,19 @@ export class MoviesPage extends Component {
 					search: `?query=${query}`,
 				});
 			})
-			.catch(error => console.log(error))
+			.catch(error => this.setState({ error }))
 			.finally(() => this.setState({ isLoading: false }));
 	};
 
 	render() {
-		const { isLoading, movies } = this.state;
+		const { isLoading, movies, error } = this.state;
 		const query = this.getSearchQueryFromParams();
 
 		return (
 			<div className="container">
 				<Search onSearch={this.getMovies} defaultQuery={query} />
 				{movies.length > 0 && <Movies movies={movies} />}
+				{error && <p style={{ color: 'red' }}>{error.message}</p>}
 				{isLoading && <Loader />}
 			</div>
 		);

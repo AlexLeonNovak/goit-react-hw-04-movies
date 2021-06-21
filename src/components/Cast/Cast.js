@@ -10,26 +10,27 @@ export class Cast extends Component {
 	state = {
 		casts: [],
 		isLoading: false,
-		isError: false,
+		error: null,
 	};
 
 	componentDidMount() {
-		this.setState({ isLoading: true });
+		this.setState({ isLoading: true, error: null });
 		const { match } = this.props;
 		fetchCast(match.params.movieId)
 			.then(casts => {
 				console.log(casts);
 				this.setState({ casts });
 			})
-			.catch(error => console.log(error))
+			.catch(error => this.setState({ error }))
 			.finally(() => this.setState({ isLoading: false }));
 	}
 
 	render() {
-		const { casts, isLoading } = this.state;
+		const { casts, isLoading, error } = this.state;
 		return (
 			<>
 				{isLoading && <Loader />}
+				{error && <p style={{ color: 'red' }}>{error.message}</p>}
 				{casts.length && (
 					<ul className={styles.Cast__grid}>
 						{casts.map(cast => (
